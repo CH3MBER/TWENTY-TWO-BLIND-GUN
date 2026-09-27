@@ -1,12 +1,14 @@
-; ------------------------------------ PrintMsg ------------------------------------
+; -------------------------- PrintMsg ---------------------------------
 ;
 ;    Prints a message given by the HL register, taking into account 
 ;    several parameters written in the DEFB instruction:
 ;    
-;    message DEFB {Row}(Decimal), {Column}(Decimal), {Color Attributes}(%FBPP PIII)
+;    message DEFB {Row}, {Column}, {Color Attributes}(%FBPP PIII)
 ;            DEFM 'Hello World', $00
 ;   
-; ----------------------------------------------------------------------------------
+;    This routine changes the registers A, B, C and HL.
+;
+; ---------------------------------------------------------------------
 
 PrintMsg:
     LD A, $18
