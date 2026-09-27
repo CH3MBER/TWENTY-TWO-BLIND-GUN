@@ -17,9 +17,10 @@
 ;         START OF PROGRAM      
 ; ================================
 
-Start:
+StartProgram:
 
-
+    LD A, $00                                               ; Turn the border BLACK
+    OUT ($FE), A
 
 
 
@@ -46,10 +47,24 @@ Start:
     CALL PrintMsg
 
 InfLoop:
+    LD A, $EF                                               ; Read the "0" key
+    IN A, ($FE)
+    BIT 0, A 
+    JR Z, StartGame
+    LD A, $F7                                               ; Read the "5" key
+    IN A, ($FE)
+    BIT 4, A 
+    JR Z, Controls
     JR InfLoop
+Controls:
+    LD A, $01
+    OUT ($FE), A 
+    JR InfLoop
+StartGame:
+    LD A, $02
+    OUT ($FE), A
+    JR InfLoop 
 
 
 
-
-
-    END Start
+    END StartProgram
