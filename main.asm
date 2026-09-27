@@ -19,7 +19,7 @@
 
 StartProgram:
 
-    LD A, $00                                               ; Turn the border BLACK
+    XOR A                                                    ; Turn the border BLACK. (XOR A will always make it $00)
     OUT ($FE), A
 
 
@@ -46,7 +46,7 @@ StartProgram:
     LD HL, msgPressFive
     CALL PrintMsg
 
-InfLoop:
+MenuLoop:
     LD A, $EF                                               ; Read the "0" key
     IN A, ($FE)
     BIT 0, A 
@@ -55,15 +55,15 @@ InfLoop:
     IN A, ($FE)
     BIT 4, A 
     JR Z, Controls
-    JR InfLoop
+    JR MenuLoop
 Controls:
     LD A, $01
     OUT ($FE), A 
-    JR InfLoop
+    JR MenuLoop
 StartGame:
     LD A, $02
     OUT ($FE), A
-    JR InfLoop 
+    JR MenuLoop 
 
 
 

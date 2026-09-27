@@ -1,6 +1,12 @@
-; ------------ PrintMsg -------------
-;    Prints a message given by HL
-; -----------------------------------
+; ------------------------------------ PrintMsg ------------------------------------
+;
+;    Prints a message given by the HL register, taking into account 
+;    several parameters written in the DEFB instruction:
+;    
+;    message DEFB {Row}(Decimal), {Column}(Decimal), {Color Attributes}(%FBPP PIII)
+;            DEFM 'Hello World', $00
+;   
+; ----------------------------------------------------------------------------------
 
 PrintMsg:
     LD A, $18
