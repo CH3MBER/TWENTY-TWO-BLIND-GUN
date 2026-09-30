@@ -58,8 +58,6 @@ MenuLoop:
     JR MenuLoop
 
 Controls:
-    LD A, $01
-    OUT ($FE), A
     CALL CL_ALL
     LD HL, msgControlsQ
     CALL PrintMsg
@@ -80,8 +78,6 @@ ControlsLoop:
     JR ControlsLoop 
 
 StartGame:
-    LD A, $02
-    OUT ($FE), A
     JR MenuLoop 
 
 

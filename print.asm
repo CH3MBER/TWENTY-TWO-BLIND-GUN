@@ -6,7 +6,7 @@
 ;    message DEFB {Row}, {Column}, {Color Attributes}(%FBPP PIII)
 ;            DEFM 'Hello World', $00
 ;   
-;    This routine changes the registers A, B, C and HL.
+;    This routine changes registers A, B, C, HL, DE and Flags.
 ;
 ; ---------------------------------------------------------------------
 

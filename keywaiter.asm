@@ -3,14 +3,15 @@
 ;    Waits for no key to be pressed to avoid accidental screen
 ;    changes
 ;   
-;    This routine changes the register A.
+;    This routine changes register A and Flags.
 ;
 ; ---------------------------------------------------------------------
 
 KeyWait:
-    LD A, $00                                               ; Read ANY key
+    HALT 
+    XOR A                                                    ; Read ANY key
     IN A, ($FE)
     OR $E0
-    SUB $FF
+    CP $FF
     JR NZ, KeyWait
     RET
