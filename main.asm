@@ -21,7 +21,10 @@
                  DEFM 'O - Move Left', $00
     msgControlsP DEFB 13, 9, %00000111
                  DEFM 'P - Move Right', $00    
+    msgControlsExit DEFB 16, 8, %00000111
+                    DEFM 'Press 5 to Return', $00   
     INCLUDE "print.asm"
+    INCLUDE "keywaiter.asm"
 
 ; ================================
 ;         START OF PROGRAM      
@@ -31,8 +34,6 @@ StartProgram:
 
     XOR A                                                   ; Turn the border BLACK. (XOR A will always make it $00)
     OUT ($FE), A
-
-
 
 MainMenu:
     LD A, %00000111                                         ; Add Permanent Color Attributes                                
@@ -44,7 +45,7 @@ MainMenu:
     CALL PrintMsg
     LD HL, msgPressFive
     CALL PrintMsg
-
+    CALL KeyWait
 MenuLoop:
     LD A, $EF                                               ; Read the "0" key
     IN A, ($FE)
@@ -55,6 +56,7 @@ MenuLoop:
     BIT 4, A 
     JR Z, Controls
     JR MenuLoop
+
 Controls:
     LD A, $01
     OUT ($FE), A
@@ -67,12 +69,16 @@ Controls:
     CALL PrintMsg
     LD HL, msgControlsP
     CALL PrintMsg
-Loop:   
-    LD A, $EF                                               ; Read the "0" key
-    IN A, ($FE)
-    BIT 0, A 
+    LD HL, msgControlsExit
+    CALL PrintMsg
+    CALL KeyWait
+ControlsLoop:  
+    LD A, $F7                                               ; Read the "5" key
+    IN A, ($FE) 
+    BIT 4, A  
     JR Z, MainMenu
-    JR Loop 
+    JR ControlsLoop 
+
 StartGame:
     LD A, $02
     OUT ($FE), A
