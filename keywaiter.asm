@@ -8,9 +8,9 @@
 ; ---------------------------------------------------------------------
 
 KeyWait:
-    HALT 
     XOR A                                                    ; Read ANY key
     IN A, ($FE)
+    HALT
     OR $E0
     CP $FF
     JR NZ, KeyWait
